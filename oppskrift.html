@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Tittelen byttes ut av oppskrift.js når oppskriften er lastet -->
+  <title>Oppskrift – Mine oppskrifter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Josefin+Sans:wght@500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== Toppmeny (samme på alle sider) ========== -->
+  <header class="topp">
+    <nav class="meny" aria-label="Hovedmeny">
+      <a href="index.html">Hjem</a>
+      <a href="oppskrifter.html" class="aktiv">Oppskrifter</a>
+    </nav>
+    <a class="logo" href="index.html">
+      <span class="logo-liten">Hjemmelagde</span>
+      <span class="logo-navn">Mine oppskrifter</span>
+      <span class="logo-hand">fra mitt kjøkken</span>
+    </a>
+    <nav class="meny" aria-label="Mer">
+      <a href="index.html#kategorier">Kategorier</a>
+      <a href="maal-og-vekt.html">Mål og vekt</a>
+    </nav>
+  </header>
+
+  <!-- Denne ene sida viser ALLE oppskriftene.
+       Hvilken det blir, står i adressen: oppskrift.html?navn=pannekaker
+       oppskrift.js henter riktig .md-fil og fyller inn feltene under. -->
+  <main>
+    <article class="oppskrift" id="oppskrift">
+      <a class="tilbake" href="oppskrifter.html">← Alle oppskrifter</a>
+
+      <div class="oppskrift-kort">
+        <p class="laster" id="laster">Laster oppskrift …</p>
+
+        <!-- hidden til oppskriften er lastet -->
+        <div class="oppskrift-topp" id="oppskrift-topp" hidden>
+
+          <!-- ===== Venstre kolonne: tittel, merkelapper, bilde og notat ===== -->
+          <div class="oppskrift-venstre">
+            <h1 id="tittel"></h1>
+            <div class="merker" id="merker"></div>
+            <div class="oppskrift-bilde" id="bilde"></div>
+            <p class="notat" id="notat" hidden></p>
+          </div>
+
+          <!-- ===== Høyre kolonne: ingredienser =====
+               Ingredienslista står under "## Ingredienser" i .md-fila.
+               oppskrift.js flytter den hit, ved siden av bildet. -->
+          <div class="oppskrift-hoyre" id="ingrediens-plass">
+            <div class="porsjoner" id="porsjoner" hidden>
+              <span>Porsjoner</span>
+              <button type="button" data-endre="-1" aria-label="Færre porsjoner">−</button>
+              <!-- aria-live gjør at skjermlesere leser opp det nye tallet -->
+              <output id="antall-porsjoner" aria-live="polite"></output>
+              <button type="button" data-endre="1" aria-label="Flere porsjoner">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Resten av oppskriften (Slik gjør du, Tips osv.) ===== -->
+        <div class="innhold" id="innhold" hidden></div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bunn">Mine oppskrifter · Laget med HTML, CSS og JavaScript</footer>
+
+  <script src="oppskrifter/liste.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/felles.js"></script>
+  <script src="js/oppskrift.js"></script>
+</body>
+</html>

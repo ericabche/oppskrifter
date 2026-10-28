@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alle oppskrifter – Mine oppskrifter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Josefin+Sans:wght@500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== Toppmeny (samme på alle sider) ========== -->
+  <header class="topp">
+    <nav class="meny" aria-label="Hovedmeny">
+      <a href="index.html">Hjem</a>
+      <a href="oppskrifter.html" class="aktiv" aria-current="page">Oppskrifter</a>
+    </nav>
+    <a class="logo" href="index.html">
+      <span class="logo-liten">Hjemmelagde</span>
+      <span class="logo-navn">Mine oppskrifter</span>
+      <span class="logo-hand">fra mitt kjøkken</span>
+    </a>
+    <nav class="meny" aria-label="Mer">
+      <a href="index.html#kategorier">Kategorier</a>
+      <a href="maal-og-vekt.html">Mål og vekt</a>
+    </nav>
+  </header>
+
+  <main class="side">
+    <h1 class="hand-tittel stor">Alle oppskrifter</h1>
+
+    <!-- Søkefelt: alle.js skjuler kortene som ikke inneholder det du skriver -->
+    <label for="sok" class="skjult">Søk etter oppskrift eller ingrediens</label>
+    <input id="sok" class="sokefelt" type="search" placeholder="Søk etter oppskrift eller ingrediens …" autocomplete="off">
+
+    <!-- Filterknapper: "Alle" står her fra start, resten legger alle.js til -->
+    <div class="filter" id="filter">
+      <button type="button" class="aktiv" data-kategori="alle">Alle</button>
+    </div>
+
+    <ul class="kort-liste" id="liste">
+      <li class="laster">Laster oppskrifter …</li>
+    </ul>
+
+    <!-- Vises bare når søket ikke gir treff -->
+    <p id="ingen" class="ingen" hidden>Fant ingen oppskrifter. Prøv et annet ord?</p>
+  </main>
+
+  <footer class="bunn">Mine oppskrifter · Laget med HTML, CSS og JavaScript</footer>
+
+  <script src="oppskrifter/liste.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/felles.js"></script>
+  <script src="js/alle.js"></script>
+</body>
+</html>

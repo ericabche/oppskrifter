@@ -1,0 +1,1022 @@
+/* ==========================================================
+   Mine oppskrifter – stilark
+   ----------------------------------------------------------
+   Innhold:
+   1. Farger og skrifter (endre her for å endre hele siden)
+   2. Grunnoppsett
+   3. Toppmeny og bunntekst
+   4. Felles byggeklosser (knapper, titler, piller)
+   5. Forsiden
+   6. Oppskriftskort (forsiden og "Alle oppskrifter")
+   7. "Alle oppskrifter"
+   8. Én oppskrift
+   9. Mål og vekt
+   10. Mobil
+   ========================================================== */
+
+
+/* ---------- 1. Farger og skrifter ----------
+   Dette er "variabler". Bytter du f.eks. --blekk her,
+   får hele siden ny hovedfarge. */
+:root {
+  --papir: #FBF7F1;        /* bakgrunnen, lys kremfarge */
+  --lys: #FFFDF8;          /* lyse felt og kort */
+  --blekk: #22506A;        /* hovedfargen: blekkblå */
+  --blekk-mork: #1B4257;   /* mørkere blå til bokser på blå bakgrunn */
+  --blekk-hover: #163849;  /* når du holder musa over en lenke */
+  --himmel: #BFD6DE;       /* lyseblå knapper og piller */
+  --himmel-lys: #E4EEF1;   /* svært lys blå bak ikoner */
+  --rust: #A84B2A;         /* rustbrun detaljfarge */
+  --brun-tekst: #6B3A22;   /* tekstfarge i oppskriftene */
+  --tekst-dempet: #6E6458; /* små hjelpetekster */
+  --tekst-bla: #3B5B6B;    /* vanlig brødtekst */
+  --linje: #E3DACB;        /* tynne kantlinjer */
+  --plassholder: #F6EEDF;  /* bakgrunn der det mangler bilde */
+
+  --hand: "Caveat", cursive;                  /* håndskrift */
+  --versal: "Josefin Sans", system-ui, sans-serif; /* meny og knapper */
+  --brod: "Lora", Georgia, serif;             /* brødtekst */
+
+  --radius: 18px;
+}
+
+
+/* ---------- 2. Grunnoppsett ---------- */
+
+/* border-box gjør at padding regnes med i bredden – mye enklere å jobbe med */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papir);
+  color: var(--blekk);
+  font-family: var(--brod);
+  font-size: 18px;
+  line-height: 1.6;
+
+  /* Gjør at bunnteksten alltid ligger nederst, også på korte sider */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* main tar all ledig plass mellom menyen og bunnteksten */
+main { flex: 1; width: 100%; }
+
+a { color: var(--blekk); }
+a:hover { color: var(--blekk-hover); }
+
+img { max-width: 100%; display: block; }
+
+/* Synlig ramme når du navigerer med tastaturet (Tab) */
+:focus-visible {
+  outline: 3px solid var(--himmel);
+  outline-offset: 2px;
+}
+
+/* Elementer med hidden-attributtet skal alltid være skjult,
+   også når de har display: flex fra en annen regel */
+[hidden] { display: none !important; }
+
+/* "Laster oppskrifter …" mens JavaScript henter filene */
+.laster {
+  list-style: none;
+  color: var(--tekst-dempet);
+  font-style: italic;
+}
+
+/* Beskjed øverst hvis siden åpnes direkte fra disken (file://) */
+.varsel {
+  margin: 0;
+  padding: 14px 24px;
+  background: var(--rust);
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Skjuler tekst visuelt, men skjermlesere leser den fortsatt */
+.skjult {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Felles bredde for innholdet på undersidene */
+.side {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 16px 24px 64px;
+}
+
+
+/* ---------- 3. Toppmeny og bunntekst ---------- */
+
+/* Menyen er tre deler på rad: lenker – logo – lenker.
+   flex-wrap gjør at de legger seg under hverandre på smale skjermer. */
+.topp {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 40px;
+}
+
+.meny {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+}
+
+.meny a {
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+}
+
+/* Siden du er på får strek under seg */
+.meny a.aktiv,
+.meny a:hover { border-bottom-color: currentColor; }
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 12px;
+  font-family: var(--versal);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.logo-liten { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; }
+.logo-navn  { font-size: 34px; font-weight: 700; letter-spacing: 0.04em; }
+.logo-hand {
+  font-family: var(--hand);
+  font-size: 20px;
+  text-transform: none;
+  color: var(--rust);
+  transform: rotate(-3deg); /* litt skjev, som skrevet for hånd */
+}
+
+.bunn {
+  background: var(--blekk);
+  color: #DCE8ED;
+  text-align: center;
+  font-size: 14px;
+  padding: 24px 24px 32px;
+}
+
+/* På forsiden har den blå seksjonen over allerede luft nok */
+.mork-seksjon + .bunn { padding-top: 0; }
+
+
+/* ---------- 4. Felles byggeklosser ---------- */
+
+/* Store håndskrevne overskrifter */
+.hand-tittel {
+  margin: 0;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1.05;
+}
+.hand-tittel.stor { font-size: 72px; }
+
+/* Rektangulære knapper med versaler */
+.knapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 28px;
+  border: none;
+  background: var(--blekk);
+  color: #FFFFFF;
+  font-family: var(--versal);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.knapp:hover { background: var(--blekk-hover); color: #FFFFFF; }
+
+.knapp-lys { background: var(--himmel); color: var(--blekk-hover); }
+.knapp-lys:hover { background: #A9C8D2; color: var(--blekk-hover); }
+
+/* Lyseblå "pille" brukt som etikett, f.eks. "Ingredienser" */
+.pille {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 8px 18px;
+  background: var(--himmel);
+  color: var(--blekk-hover);
+  border-radius: 999px;
+  font-family: var(--versal);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+/* Runde søkefelt */
+.sokefelt,
+.sok-skjema input {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--blekk);
+  background: var(--lys);
+  border: 2px solid var(--blekk);
+  border-radius: 999px;
+}
+
+
+/* ---------- 5. Forsiden ---------- */
+
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 24px;
+}
+
+.hero-tegning {
+  width: 260px;
+  height: 240px;
+  flex-shrink: 0;
+  color: var(--blekk); /* tegningene bruker currentColor, altså denne fargen */
+}
+
+.hero-tekst {
+  flex: 1 1 420px;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  padding-bottom: 28px;
+}
+.hero-tekst h1 {
+  margin: 0;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 68px;
+  line-height: 1;
+}
+.hero-tekst p { margin: 0; color: var(--tekst-bla); }
+
+.knapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sok-skjema { width: 100%; max-width: 420px; }
+
+/* Bølgen fylles med samme farge som stripa under, så de flyter sammen */
+.bolge { display: block; width: 100%; height: 40px; }
+.bolge path { fill: var(--lys); }
+
+.lys-stripe {
+  background: var(--lys);
+  padding: 12px 24px 56px;
+}
+
+/* De fire små "dette kan siden"-punktene.
+   auto-fit + minmax: så mange kolonner som får plass, minst 220px brede. */
+.funksjoner {
+  list-style: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.funksjoner li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--tekst-bla);
+}
+.funksjoner svg { width: 44px; height: 44px; flex-shrink: 0; color: var(--blekk); }
+
+/* Kategorifliser */
+.kategorier {
+  max-width: 1160px;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  scroll-margin-top: 24px; /* litt luft når du hopper hit fra menyen */
+}
+
+.kategori-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;           /* bryter til ny linje i stedet for å skli */
+  justify-content: center;
+  gap: 14px;
+}
+
+.kategori {
+  width: 124px;
+  height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--papir);
+  border: 1px solid var(--linje);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.2;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.kategori:hover { transform: translateY(-3px); border-color: var(--blekk); }
+.kategori .kategori-ikon { width: 40px; height: 40px; }
+
+/* Blå seksjoner med lys boks inni */
+.mork-seksjon {
+  background: var(--blekk);
+  padding: 56px 24px 0;
+}
+.mork-seksjon:last-of-type { padding-bottom: 56px; }
+
+.hvit-boks {
+  max-width: 1160px;
+  margin: 0 auto;
+  background: var(--lys);
+  border-radius: 32px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.se-alle {
+  align-self: center;
+  font-family: var(--versal);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Avslutningen nederst på forsiden */
+.avslutning {
+  max-width: 1160px;
+  margin: 0 auto;
+  border-radius: 32px;
+  overflow: hidden; /* gjør at de runde hjørnene klipper innholdet */
+}
+.avslutning-topp {
+  background: var(--papir);
+  padding: 20px;
+  text-align: center;
+  font-family: var(--versal);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.avslutning-innhold {
+  background: var(--blekk-mork);
+  color: #FFFFFF;
+  padding: 48px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  text-align: center;
+}
+.avslutning-innhold > div {
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.avslutning-innhold p { margin: 0; color: #DCE8ED; }
+.avslutning-innhold svg { width: 90px; height: 90px; }
+
+
+/* ---------- 6. Oppskriftskort ---------- */
+
+.kort-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.kort a {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--linje);
+  box-shadow: 0 6px 18px rgba(34, 80, 106, 0.08);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hvert kort er litt skjevt, som papirlapper på et bord.
+   nth-child velger annenhver/hver tredje, så de vipper ulikt. */
+.kort:nth-child(3n + 1) a { transform: rotate(-1deg); }
+.kort:nth-child(3n + 2) a { transform: rotate(0.8deg); }
+.kort:nth-child(3n + 3) a { transform: rotate(-0.6deg); }
+.kort a:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 12px 26px rgba(34, 80, 106, 0.14);
+}
+
+.kort-bilde {
+  height: 200px;
+  background: var(--plassholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #C9B48F; /* farge på plassholder-ikonet */
+}
+.kort-bilde img { width: 100%; height: 100%; object-fit: cover; }
+.kort-bilde .kategori-ikon { width: 72px; height: 72px; }
+
+.kort-tittel {
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1;
+}
+.kort-info {
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+
+/* ---------- 7. "Alle oppskrifter" ---------- */
+
+.side > .hand-tittel.stor { margin-bottom: 20px; }
+
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 32px;
+}
+.filter button {
+  min-height: 40px;
+  padding: 0 18px;
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blekk);
+  background: transparent;
+  border: 2px solid var(--blekk);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.filter button.aktiv { background: var(--blekk); color: #FFFFFF; }
+
+.ingen { text-align: center; color: var(--tekst-dempet); }
+
+
+/* ---------- 8. Én oppskrift ---------- */
+
+.oppskrift {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 8px 24px 64px;
+}
+
+.tilbake {
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Selve "oppskriftskortet" – et stort papirark */
+.oppskrift-kort {
+  margin-top: 20px;
+  background: var(--lys);
+  border: 1px solid var(--linje);
+  box-shadow: 0 10px 30px rgba(34, 80, 106, 0.10);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* To kolonner som legger seg under hverandre når det blir trangt */
+.oppskrift-topp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+.oppskrift-venstre {
+  flex: 1 1 380px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.oppskrift-hoyre {
+  flex: 1 1 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.oppskrift h1 {
+  margin: 0;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 84px;
+  line-height: 0.95;
+}
+
+.merker { display: flex; flex-wrap: wrap; gap: 10px; }
+.merke {
+  padding: 6px 12px;
+  border: 2px solid var(--blekk);
+  border-radius: 999px;
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.oppskrift-bilde {
+  min-height: 280px;
+  background: var(--plassholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-1.2deg);
+  color: #C9B48F;
+  overflow: hidden;
+}
+.oppskrift-bilde img { width: 100%; height: auto; }
+.oppskrift-bilde .kategori-ikon { width: 110px; height: 110px; }
+
+.notat {
+  margin: 0;
+  font-family: var(--hand);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--rust);
+}
+
+/* Porsjonsvelgeren */
+.porsjoner {
+  order: 2; /* havner rett under "Ingredienser"-pilla når den flyttes inn */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--hand);
+  font-size: 26px;
+}
+.porsjoner button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--blekk);
+  background: transparent;
+  color: var(--blekk);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.porsjoner button:hover { background: var(--himmel-lys); }
+.porsjoner output {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 34px;
+}
+
+/* Overskriftene fra Markdown (## Ingredienser, ## Slik gjør du)
+   blir lyseblå piller, akkurat som i designet */
+.oppskrift h2 {
+  align-self: flex-start;
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 8px 18px;
+  background: var(--himmel);
+  color: var(--blekk-hover);
+  border-radius: 999px;
+  font-family: var(--versal);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+/* Rekkefølgen i høyre kolonne: pille → porsjoner → lista → hint.
+   order bestemmer rekkefølgen i en flex-boks uansett hvor i HTML-en tingene står. */
+.oppskrift-hoyre > * { order: 3; }
+.oppskrift-hoyre h2 { order: 1; margin: 0; }
+.oppskrift-hoyre .hint { order: 4; }
+
+/* Fremgangsmåten har en stiplet strek over seg */
+.innhold {
+  border-top: 2px dashed var(--linje);
+  padding-top: 36px;
+  color: var(--brun-tekst);
+}
+.innhold h2:not(:first-child) { margin-top: 28px; }
+.innhold ol { margin: 0; padding-left: 28px; }
+.innhold ol li { padding-left: 6px; margin: 10px 0; }
+.innhold p { margin: 0 0 12px; }
+
+/* Ingredienslista. Hver linje er bygget av js/oppskrift.js slik:
+   [sirkel-knapp] [mengde-felt] [resten av teksten]  */
+.oppskrift-hoyre ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--brun-tekst);
+}
+.oppskrift-hoyre li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Den runde avkrysningsknappen */
+.sjekk {
+  width: 44px;            /* stort nok til å treffe med fingeren */
+  height: 44px;
+  flex-shrink: 0;
+  margin-left: -11px;     /* sirkelen står likevel i flukt med pilla over */
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sjekk::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--blekk);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+/* Når du har krysset av (js/oppskrift.js legger til .ferdig på linja) */
+.oppskrift-hoyre li.ferdig { color: #8E8173; }
+.oppskrift-hoyre li.ferdig .rest,
+.oppskrift-hoyre li.ferdig .mengde { text-decoration: line-through; }
+.oppskrift-hoyre li.ferdig .sjekk::before {
+  background-color: var(--blekk);
+  /* lite hvitt hake-merke tegnet som bakgrunnsbilde */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 11.5l3.2 3L16 8'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Mengde-feltet: ser ut som vanlig tekst med en stiplet strek under,
+   så man skjønner at man kan trykke og skrive i det */
+.mengde {
+  width: 3ch;              /* js/oppskrift.js justerer bredden etter tallet */
+  min-width: 2ch;
+  padding: 2px 4px;
+  margin: 0 -2px;
+  border: none;
+  border-bottom: 2px dashed var(--himmel);
+  border-radius: 4px 4px 0 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  cursor: text;
+}
+.mengde:hover { background: var(--himmel-lys); }
+.mengde:focus {
+  outline: none;
+  background: var(--himmel-lys);
+  border-bottom-color: var(--blekk);
+}
+/* Mengder som er endret fra originalen får blekkfarge */
+.mengde.endret { color: var(--blekk); font-weight: 500; }
+
+/* Det siste tallet i et intervall, f.eks. "–3" i "2–3 gulrøtter" */
+.mengde-til { margin-left: -6px; }
+.oppskrift-hoyre li.ferdig .mengde-til { text-decoration: line-through; }
+
+/* Underoverskrifter i oppskriftene (### Bunn, ### Fyll osv.) */
+.oppskrift h3 {
+  margin: 14px 0 0;
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.1;
+  color: var(--blekk);
+}
+.innhold h3 { margin: 22px 0 8px; }
+
+/* "Tilbake til original"-knappen under lista */
+.tilbakestill {
+  order: 4;
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rust);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hint { margin: 0; font-size: 14px; color: var(--tekst-dempet); }
+
+
+/* ---------- 9. Mål og vekt ---------- */
+
+.maal-intro {
+  background: var(--lys);
+  border: 1px solid var(--linje);
+  border-radius: 28px;
+  padding: 40px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  text-align: center;
+}
+.maal-intro > div { max-width: 560px; }
+.maal-intro p { margin: 12px 0 0; color: var(--tekst-bla); }
+.maal-intro svg { width: 96px; height: 96px; }
+
+.kalkulator {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.kalk-ingredienser {
+  flex: 1 1 260px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingrediens-valg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  background: var(--lys);
+  border: 1px solid var(--linje);
+  border-radius: 20px;
+}
+.ingrediens-valg button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--blekk);
+  font: inherit;
+  font-size: 17px;
+  text-align: left;
+  cursor: pointer;
+}
+.ingrediens-valg button:hover { background: var(--himmel-lys); }
+.ingrediens-valg button small { font-size: 13px; opacity: 0.8; white-space: nowrap; }
+/* Den valgte ingrediensen (aria-pressed="true" settes av js/maal-og-vekt.js) */
+.ingrediens-valg button[aria-pressed="true"] { background: var(--blekk); color: #FFFFFF; }
+
+.kalk-felter {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.valgt-boks {
+  background: var(--blekk);
+  color: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.valgt-boks span {
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #DCE8ED;
+}
+.valgt-boks strong {
+  font-family: var(--hand);
+  font-size: 48px;
+  line-height: 1.05;
+}
+
+.felt-rutenett {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.felt { display: flex; flex-direction: column; gap: 8px; }
+.felt label {
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.felt-boks {
+  display: flex;
+  height: 60px;
+  background: var(--lys);
+  border: 1px solid var(--linje);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.felt-boks:focus-within { border-color: var(--blekk); }
+.felt input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 16px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 22px;
+  color: var(--blekk);
+}
+.felt input:focus { outline: none; } /* rammen vises på .felt-boks i stedet */
+
+/* Ikonene i feltene: en SVG brukes som "maske", og fargen kommer
+   fra background-color. Da kan vi bytte farge uten å endre SVG-en. */
+.felt-ikon {
+  width: 60px;
+  flex-shrink: 0;
+  background: var(--himmel-lys);
+  position: relative;
+}
+.felt-ikon::after {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  background: var(--blekk);
+  -webkit-mask: var(--ikon) center / contain no-repeat;
+          mask: var(--ikon) center / contain no-repeat;
+}
+.ikon-vekt { --ikon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 26l3-14h14l3 14z'/%3E%3Ccircle cx='15' cy='20' r='3.5'/%3E%3Cpath d='M15 20l2-2M9 12q6-8 12 0'/%3E%3C/svg%3E"); }
+.ikon-maal { --ikon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 4h14l-1 22H9z'/%3E%3Cpath d='M9 14h12M12 9h3M12 19h3'/%3E%3C/svg%3E"); }
+.ikon-skje { --ikon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='15' cy='8' rx='4' ry='5'/%3E%3Cpath d='M15 13v14'/%3E%3C/svg%3E"); }
+.ikon-kopp { --ikon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9h16l-2 15H7z'/%3E%3Cpath d='M21 12h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-4'/%3E%3C/svg%3E"); }
+
+/* "— Utenlandske mål —" med strek på hver side */
+.skillelinje {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--tekst-dempet);
+  font-family: var(--versal);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.skillelinje::before,
+.skillelinje::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #D8CDBB;
+}
+
+.liten-tekst { margin: 0; font-size: 14px; color: var(--tekst-dempet); }
+
+.godt-aa-vite {
+  margin-top: 48px;
+  background: var(--blekk);
+  color: #FFFFFF;
+  border-radius: 28px;
+  padding: 32px;
+}
+.godt-aa-vite ul {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  font-size: 17px;
+}
+.godt-aa-vite li {
+  background: var(--blekk-mork);
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+
+/* ---------- 10. Mobil ----------
+   Reglene under gjelder bare når skjermen er smalere enn 700px. */
+@media (max-width: 700px) {
+  body { font-size: 17px; }
+
+  .logo { order: -1; width: 100%; text-align: center; } /* logoen øverst, menyene under */
+  .logo-navn { font-size: 28px; }
+  .meny { gap: 18px; }
+  .meny a { font-size: 13px; }
+
+  .hero-tegning { display: none; } /* tegningene tar for mye plass på mobil */
+  .hero-tekst h1 { font-size: 52px; }
+
+  .hand-tittel { font-size: 40px; }
+  .hand-tittel.stor { font-size: 56px; }
+
+  .hvit-boks { padding: 28px 18px; border-radius: 24px; }
+  .mork-seksjon { padding: 32px 16px 0; }
+  .mork-seksjon:last-of-type { padding-bottom: 32px; }
+
+  .kategori { width: 104px; height: 100px; font-size: 12px; }
+
+  .oppskrift { padding: 8px 12px 40px; }
+  .oppskrift-kort { padding: 28px 20px; }
+  .oppskrift h1 { font-size: 60px; }
+
+  .kalk-ingredienser { max-width: none; }
+}
