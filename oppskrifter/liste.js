@@ -29,5 +29,6 @@ var OPPSKRIFT_LISTE = [
   "langtidsstekt-ribbe",
   "saus-til-ribbe",
   "pinnekjott-med-rotmos",
-  "kalrabistappe"
+  "kalrabistappe",
+  "banh-xeo"
 ];
