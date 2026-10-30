@@ -21,5 +21,13 @@ var OPPSKRIFT_LISTE = [
   "dumplings",
   "cottage-cheese-pizzaboller",
   "bananbrod",
-  "oreokake"
+  "oreokake",
+  "ovnsbakt-tomatsuppe",
+  "lasagne-hoyrygg",
+  "bun-rieu",
+  "rokt-svinekam",
+  "langtidsstekt-ribbe",
+  "saus-til-ribbe",
+  "pinnekjott-med-rotmos",
+  "kalrabistappe"
 ];

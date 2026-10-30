@@ -75,14 +75,16 @@ var KATEGORI_IKONER = {
   "kake":     '<path d="M6 32V18l28-8v22z"/><path d="M6 24l28-6"/><circle cx="28" cy="7" r="3"/>',
   "dessert":  '<path d="M13 18l7 18 7-18"/><path d="M11 18a9 9 0 0 1 18 0z"/><path d="M16 23l6 4M15 28l8-2"/>',
   "pannekaker": '<ellipse cx="20" cy="30" rx="14" ry="3.5"/><path d="M6 30v-4M34 30v-4"/><ellipse cx="20" cy="22" rx="13" ry="3.5"/><path d="M7 22v-3M33 22v-3"/><ellipse cx="20" cy="15" rx="12" ry="3.5"/><path d="M17 11q3-4 6 0"/>',
+  // Juletre med stjerne i toppen
+  "jul":      '<path d="M20 9l-8 10h4l-7 9h22l-7-9h4z"/><path d="M20 28v6M16 34h8"/><path d="M20 3.5l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z"/>',
   // Brukes når kategorien ikke finnes over: tallerken med kniv og gaffel
   "standard": '<circle cx="20" cy="22" r="11"/><circle cx="20" cy="22" r="6"/><path d="M5 8v8a2 2 0 0 0 2 2v16M5 8v6M9 8v6"/><path d="M35 8c-3 2-3 8 0 10v16"/>'
 };
 
 // Andre navn som skal få samme ikon
 var IKON_ALIASER = {
-  "supper": "suppe", "salater": "salat", "bakst": "brød", "brød og bakst": "brød",
-  "kaker": "kake", "vafler": "pannekaker"
+  "salater": "salat", "bakst": "brød", "brød og bakst": "brød",
+  "kaker": "kake", "vafler": "pannekaker", "julemat": "jul", "supper": "suppe"
 };
 
 function kategoriIkon(kategori) {
