@@ -23,6 +23,11 @@ notat: Raguen trenger lang tid – start i god tid!
 - 2 laurbærblad
 - Salt og pepper
 
+### Mellom lagene
+- Fersk pastaplater
+- Fersk mozarella
+- Revet parmesan
+
 ### Topping
 - 300 g revet ost
 
@@ -32,7 +37,4 @@ notat: Raguen trenger lang tid – start i god tid!
 3. Rør inn tomatpuréen og stek et par minutter. Hell i rødvinen og la den koke inn litt.
 4. Ha kjøttet tilbake i gryta sammen med kjøttkraft, hermetiske tomater og laurbærblad. Legg på lokk og la det småkoke på svak varme i ca. 3 timer, til kjøttet faller fra hverandre.
 5. Ta ut laurbærbladene, riv kjøttet i biter med to gafler og smak til med salt og pepper.
-6. Legg raguen lagvis i en ildfast form, strø revet ost på toppen og stek på 200 °C i ca. 20–30 minutter, til osten er gyllen.
-
-## Kilde
-Ingrediensene er fra [Lasagne med ragu av høyrygg på Foodie](https://foodie.no/oppskrifter/lasagne-med-ragu-av-hoyrygg), uten hjemmelaget pasta og hvit saus.
+6. Legg raguen lagvis i en ildfast form, legg på revet parmesan, fersk mozarella og ferske pastaplater lagvis. Strø revet ost på toppen og stek på 200 °C i ca. 20–30 minutter, til osten er gyllen.

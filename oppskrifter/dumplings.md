@@ -29,4 +29,8 @@ kategori: Middag
 - MSG
 
 ## Slik gjør du
-1. Bland deigen til den er klumpfri og glatt.
+1. Bland deigen til den er klumpfri og glatt. Dekk til med plastikkfolie og la den stå og hvile.
+2. Bland sausen og sett i kjøleskapet.
+3. Bland svinekjøtt og scampi fyllet.
+4. Rull ut dumplingsdeigen og fyll den med fyllet.
+5. Stek i olje eller damp dem i en steamer.

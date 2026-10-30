@@ -1,6 +1,6 @@
 ---
 title: Pannekaker
-kategori: Dessert
+kategori: Frokost
 porsjoner: 4
 tid: 30 min
 notat: Best med syltetøy og et dryss sukker.
